@@ -54,7 +54,9 @@ public class Display implements ApplicationListener {
         createSetup();
         objectFactory.createPlayer();
         //objectFactory.createPyramid(5, new Point3D(0, 0, 0), 280f);
-        objectFactory.createPyramid(10, new Point3D(-40.0f, 6.0f, 0.0f), 60.0f);
+        objectFactory.createPyramid(10, new Point3D(-75.0f, 5.0f, -50.0f), 80.0f);
+        objectFactory.createPyramid(20, new Point3D(-87.0f, 5.0f, 0.0f), 50.0f);
+        objectFactory.createPyramid(30, new Point3D(-100.0f, 5.0f, 67.0f), 20.0f);
         //Walls
         objectFactory.createMaze(10, 6);
         List<CollidableObject> collidableObjects = objectFactory.getCollidableObjects();

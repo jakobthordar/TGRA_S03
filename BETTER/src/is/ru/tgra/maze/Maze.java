@@ -80,7 +80,7 @@ public class Maze implements ObjectReference {
     }
 
     private void createFloor() {
-        objectFactory.createBox(position, axis, 0.1f, axis, Color3.pastelBlue);
+        objectFactory.createBox(position, axis, 0.1f, axis, Color3.wineRed);
     }
 
     public int getSize() {

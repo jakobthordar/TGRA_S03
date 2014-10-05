@@ -24,14 +24,18 @@ public class Pyramid implements CollidableObject {
     protected float width;
     protected float boxwidth;
     protected float pyramidSpeed;
+    protected float chunkSize;
+    protected float flatness;
 
     public Pyramid() {
         pyramidRotate = 0.0f;
         this.pyramidSpeed = 180.0f;
         totalLevels = 5;
-        this.boxwidth = 1.0f;
+        this.boxwidth = 1.2f;
         this.width = boxwidth * totalLevels;
         this.position = new Point3D(-2.4f, 0.0f, -2.4f);
+        this.chunkSize = 0.0f;
+        this.flatness = 1.5f;
         generatePyramid();
     }
     public Pyramid(int totalLevels, Point3D position, float pyramidSpeed) {
@@ -39,19 +43,31 @@ public class Pyramid implements CollidableObject {
         this.pyramidSpeed = pyramidSpeed;
         this.totalLevels = totalLevels;
         this.position = position;
-        this.boxwidth = 1.0f;
+        this.boxwidth = 1.2f;
         this.width = boxwidth * totalLevels;
+        this.chunkSize = 0.0f;
+        this.flatness = 1.5f;
         generatePyramid();
     }
 
     private void generatePyramid() {
-        for(int level = 0; level < totalLevels; level++) {
+        /*for(int level = 0; level < totalLevels; level++) {
             for(int i = 0; i < totalLevels - level; i++) {
                 for(int j = 0; j < totalLevels - level; j++) {
                     pyramidBoxes.add(factory.createPyramidBox(new Point3D(level * 0.6f + i * 1.2f, level * 1.2f, level * 0.6f + j * 1.2f),
                             1.2f,
                             new Color3(1.0f, 0.5f, 0.0f)));
                 }
+            }
+        }*/
+
+        for(int level = 0; level < totalLevels; level++) {
+            for(int i = 0; i < totalLevels - level; i++) {
+                chunkSize = (1.2f * (i + 1)) * flatness;
+                pyramidBoxes.add(factory.createPyramidBox(new Point3D(width/2, 1.2f * level, width/2),
+                    chunkSize,
+                    1.2f,
+                    new Color3(1.0f, 0.5f, 0.0f)));
             }
         }
     }

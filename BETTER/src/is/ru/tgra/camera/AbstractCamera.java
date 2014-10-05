@@ -23,7 +23,7 @@ public abstract class AbstractCamera implements Camera {
     public Vector3 n;
 
     protected float speed = 10.0f;
-    protected float farPlane = 100;
+    protected float farPlane = 150;
     protected Vector3 movement = new Vector3();
 
     protected float left;
