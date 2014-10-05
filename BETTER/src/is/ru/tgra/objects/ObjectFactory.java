@@ -1,7 +1,13 @@
 package is.ru.tgra.objects;
 
+import com.badlogic.gdx.math.Vector3;
 import is.ru.tgra.Color3;
 import is.ru.tgra.Point3D;
+import is.ru.tgra.camera.Camera;
+import is.ru.tgra.camera.FirstPersonCamera;
+import is.ru.tgra.camera.TopDownCamera;
+import is.ru.tgra.maze.Maze;
+import is.ru.tgra.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +23,17 @@ public class ObjectFactory {
 
     protected static ObjectFactory instance = new ObjectFactory();
 
-    //protected static FirstPersonCamera camFirstPerson;
+    protected static FirstPersonCamera camFirstPerson;
+    protected static TopDownCamera topDownCamera;
+    protected static Arrow arrow;
+
+    protected static Player player;
+
+    protected static Maze maze;
+
     protected static List<ObjectReference> objects = new ArrayList<ObjectReference>();
-    protected static List<Box> boxes = new ArrayList<Box>();
-    //protected static List<Pyramid> pyramids = new ArrayList<Pyramid>();
+    protected static List<Camera> cameras = new ArrayList<Camera>();
+    protected static List<Pyramid> pyramids = new ArrayList<Pyramid>();
 
     private ObjectFactory() {
     }
@@ -29,50 +42,85 @@ public class ObjectFactory {
         return instance;
     }
 
-    /**
-     * Creates a box and adds it to the shapes and boxes list.
-     * @param position Initial position of the box.
-     * @param size Initial size factor.
-     * @param color The color of the box.
-     */
-    public Box createBox(Point3D position, float size, Color3 color) {
-        Box box = new Box(position, size, color);
+    public Box createBox(Point3D position, float xSize, float ySize, float zSize, Color3 color) {
+        Box box = new Box(position, xSize, ySize, zSize, color);
         objects.add(box);
-        boxes.add(box);
         return box;
+    }
+
+    public Box createWallBox(Point3D position, float xSize, float ySize, float zSize, Color3 color) {
+        Box box = new Box(position, xSize, ySize, zSize, color);
+        return box;
+    }
+
+    public void createPlayer() {
+        FirstPersonCamera fpc = this.createFirstPersonCamera();
+        TopDownCamera tdc = this.createTopDownCamera();
+        Arrow arrow = this.createArrow();
+        Player newPlayer = new Player();
+        newPlayer.setFirstPersonCamera(fpc);
+        newPlayer.setTopDownCamera(tdc);
+        newPlayer.setArrow(arrow);
+        player = newPlayer;
+    }
+
+    public Arrow createArrow() {
+        Arrow arrow = new Arrow();
+        return arrow;
+    }
+
+    public void createMaze(int size, int cellsize) {
+        maze = new Maze(size, cellsize);
+        objects.add(maze);
+    }
+
+    public Maze getMaze() {
+        return maze;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Box createPyramidBox(Point3D position, float size, Color3 color) {
-        Box box = new Box(position, size, color);
+        Box box = new Box(position, size, size, size, color);
         return box;
     }
-    /*
 
-    public static FirstPersonCamera createFirstPersonCamera() {
-        camFirstPerson = new FirstPersonCamera();
-        camFirstPerson.lookAt(new Point3D(0.0f, 0.0f, 5.0f), new Point3D(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f));
-        camFirstPerson.perspective(75.0f, 1.333333f, 0.2f, 10.0f);
-        objects.add(camFirstPerson);
-        return camFirstPerson;
-    }
-
-    public static Pyramid createPyramid() {
+    public Pyramid createPyramid() {
         Pyramid pyramid = new Pyramid();
         objects.add(pyramid);
         pyramids.add(pyramid);
         return pyramid;
     }
 
-    public static FirstPersonCamera getCamFirstPerson() {
+    private FirstPersonCamera createFirstPersonCamera() {
+        camFirstPerson = new FirstPersonCamera();
+        objects.add(camFirstPerson);
+        cameras.add(camFirstPerson);
         return camFirstPerson;
     }
-    */
+
+    private TopDownCamera createTopDownCamera() {
+        topDownCamera = new TopDownCamera();
+        objects.add(topDownCamera);
+        cameras.add(topDownCamera);
+        return topDownCamera;
+    }
+
+    public FirstPersonCamera getCamFirstPerson() {
+        return camFirstPerson;
+    }
+
+    public TopDownCamera getTopDownCamera() {
+        return topDownCamera;
+    }
+
+    public List<Camera> getCameras() {
+        return cameras;
+    }
 
     public List<ObjectReference> getObjects() {
         return objects;
-    }
-
-    public static List<Box> getBoxes() {
-        return boxes;
     }
 }

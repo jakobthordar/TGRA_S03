@@ -21,9 +21,11 @@ public class Box extends AbstractShape {
     public Box() {
     }
 
-    public Box(Point3D position, float size, Color3 color) {
+    public Box(Point3D position, float xSize, float ySize, float zSize, Color3 color) {
         this.position = position;
-        this.size = size;
+        this.ySize = ySize;
+        this.xSize = xSize;
+        this.zSize = zSize;
         this.color = color;
     }
 
@@ -53,7 +55,7 @@ public class Box extends AbstractShape {
         Gdx.gl11.glVertexPointer(3, GL11.GL_FLOAT, 0, vertexBuffer);
 
         Gdx.gl11.glTranslatef(position.x, position.y, position.z);
-        Gdx.gl11.glScalef(size, size, size);
+        Gdx.gl11.glScalef(xSize, ySize, zSize);
 
         float[] materialDiffuse = {color.r, color.g, color.b, 1.0f};
         Gdx.gl11.glMaterialfv(GL11.GL_FRONT, GL11.GL_DIFFUSE, materialDiffuse, 0);

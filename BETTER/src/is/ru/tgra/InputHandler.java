@@ -1,7 +1,9 @@
 package is.ru.tgra;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * <h1>InputHandler</h1>
@@ -16,7 +18,20 @@ public class InputHandler implements InputProcessor {
 
     private static InputHandler instance = new InputHandler();
 
-    public boolean keyDown;
+    public boolean isWPressed;
+    public boolean isAPressed;
+    public boolean isSPressed;
+    public boolean isDPressed;
+
+    public boolean isUpPressed;
+    public boolean isDownPressed;
+    public boolean isLeftPressed;
+    public boolean isRightPressed;
+
+    public int xMovement;
+    public int yMovement;
+    public int oldX;
+    public int oldY;
 
     private InputHandler() {
     }
@@ -27,13 +42,63 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean keyDown(int i) {
-        keyDown = true;
+        switch (i) {
+            case Input.Keys.W:
+                isWPressed = true;
+                break;
+            case Input.Keys.A:
+                isAPressed = true;
+                break;
+            case Input.Keys.S:
+                isSPressed = true;
+                break;
+            case Input.Keys.D:
+                isDPressed = true;
+                break;
+            case Input.Keys.UP:
+                isUpPressed = true;
+                break;
+            case Input.Keys.DOWN:
+                isDownPressed = true;
+                break;
+            case Input.Keys.LEFT:
+                isLeftPressed = true;
+                break;
+            case Input.Keys.RIGHT:
+                isRightPressed = true;
+                break;
+        }
         return true;
     }
 
     @Override
     public boolean keyUp(int i) {
-        keyDown = false;
+        switch (i) {
+            case Input.Keys.W:
+                isWPressed = false;
+                break;
+            case Input.Keys.A:
+                isAPressed = false;
+                break;
+            case Input.Keys.S:
+                isSPressed = false;
+                break;
+            case Input.Keys.D:
+                isDPressed = false;
+                break;
+            case Input.Keys.UP:
+                isUpPressed = false;
+                break;
+            case Input.Keys.DOWN:
+                isDownPressed = false;
+                break;
+            case Input.Keys.LEFT:
+                isLeftPressed = false;
+                break;
+            case Input.Keys.RIGHT:
+                isRightPressed = false;
+                break;
+        }
         return true;
     }
 
@@ -59,7 +124,9 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int i, int i2) {
-        return false;
+        xMovement = i - oldX;
+        yMovement = i2 - oldY;
+        return true;
     }
 
     @Override

@@ -12,15 +12,13 @@ import is.ru.tgra.Point3D;
 public abstract class AbstractShape implements ObjectReference {
 
     protected Point3D position;
-    protected float size;
+    protected float xSize;
+    protected float ySize;
+    protected float zSize;
     protected Color3 color;
 
     public void setPosition(Point3D position) {
         this.position = position;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public void setColor(Color3 color) {
@@ -37,7 +35,6 @@ public abstract class AbstractShape implements ObjectReference {
     public String toString() {
         return "AbstractShape{" +
                 "position=" + position +
-                ", size=" + size +
                 ", color=" + color +
                 '}';
     }

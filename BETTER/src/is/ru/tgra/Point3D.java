@@ -27,4 +27,11 @@ public class Point3D
         y = y + v.y;
         z = z + v.z;
     }
+
+    public float lengthTo(Point3D p) {
+        float newX = this.x - p.x;
+        float newY = this.y - p.y;
+        float newZ = this.z - p.z;
+        return (float)Math.sqrt(newX * newX + newY * newY + newZ * newZ);
+    }
 }
