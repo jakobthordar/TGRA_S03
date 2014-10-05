@@ -39,7 +39,7 @@ public class Display implements ApplicationListener {
         Gdx.gl11.glEnable(GL11.GL_LIGHTING);
         Gdx.gl11.glEnable(GL11.GL_LIGHT0);
         Gdx.gl11.glEnable(GL11.GL_DEPTH_TEST);
-        Gdx.gl11.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Gdx.gl11.glClearColor(0.624f, 0.62f, 0.776f, 1.0f);
         Gdx.gl11.glEnable(GL11.GL_NORMALIZE);
 
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
