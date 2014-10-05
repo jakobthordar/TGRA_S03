@@ -33,7 +33,7 @@ public abstract class AbstractCamera implements Camera {
 
     protected float maxSpeed = 10.0f;
     protected float speed = 0.0f;
-    protected float farPlane = 100;
+    protected float farPlane = 150;
     protected Vector3 direction = new Vector3();
     protected Vector3 motion = new Vector3();
 

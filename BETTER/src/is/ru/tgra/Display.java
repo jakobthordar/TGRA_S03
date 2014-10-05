@@ -40,7 +40,7 @@ public class Display implements ApplicationListener {
         Gdx.gl11.glEnable(GL11.GL_LIGHTING);
         Gdx.gl11.glEnable(GL11.GL_LIGHT0);
         Gdx.gl11.glEnable(GL11.GL_DEPTH_TEST);
-        Gdx.gl11.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Gdx.gl11.glClearColor(0.624f, 0.62f, 0.776f, 1.0f);
         Gdx.gl11.glEnable(GL11.GL_NORMALIZE);
 
         Gdx.gl11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
@@ -55,7 +55,9 @@ public class Display implements ApplicationListener {
         createSetup();
         objectFactory.createPlayer();
         //objectFactory.createPyramid(5, new Point3D(0, 0, 0), 280f);
-        objectFactory.createPyramid(10, new Point3D(-40.0f, 6.0f, 0.0f), 60.0f);
+        objectFactory.createPyramid(10, new Point3D(-75.0f, 5.0f, -50.0f), 80.0f);
+        objectFactory.createPyramid(20, new Point3D(-87.0f, 5.0f, 0.0f), 50.0f);
+        objectFactory.createPyramid(30, new Point3D(-100.0f, 5.0f, 67.0f), 20.0f);
         //Walls
         objectFactory.createMaze(10, 6);
         List<CollidableObject> collidableObjects = objectFactory.getCollidableObjects();

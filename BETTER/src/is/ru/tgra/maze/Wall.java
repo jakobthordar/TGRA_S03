@@ -46,13 +46,13 @@ public class Wall implements CollidableObject {
             Point3D newPos = new Point3D(startPoint.x, startPoint.y, startPoint.z + length / 2);
             position = newPos;
             isVertical = true;
-            box = objectFactory.createWallBox(newPos, thickness, tallness, length + thickness, Color3.pastelRed);
+            box = objectFactory.createWallBox(newPos, thickness, tallness, length + thickness, Color3.grey);
         }
         if (startCoordinate.y == endCoordinate.y) {
             Point3D newPos = new Point3D(startPoint.x + length / 2, startPoint.y, startPoint.z);
             position = newPos;
             isVertical = false;
-            box = objectFactory.createWallBox(newPos, length + thickness, tallness, thickness, Color3.pastelRed);
+            box = objectFactory.createWallBox(newPos, length + thickness, tallness, thickness, Color3.grey);
         }
     }
 

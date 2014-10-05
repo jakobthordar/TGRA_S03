@@ -91,8 +91,8 @@ public class ObjectFactory {
         return player;
     }
 
-    public Box createPyramidBox(Point3D position, float size, Color3 color) {
-        Box box = new Box(position, size, size, size, color);
+    public Box createPyramidBox(Point3D position, float floorSize, float boxHeight, Color3 color) {
+        Box box = new Box(position, floorSize, boxHeight, floorSize, color);
         return box;
     }
 
