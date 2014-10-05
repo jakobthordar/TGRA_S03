@@ -1,5 +1,6 @@
 package is.ru.tgra.objects;
 
+import com.badlogic.gdx.math.Vector3;
 import is.ru.tgra.Color3;
 import is.ru.tgra.Point3D;
 

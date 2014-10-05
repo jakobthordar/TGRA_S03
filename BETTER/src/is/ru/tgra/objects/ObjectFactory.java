@@ -1,12 +1,13 @@
 package is.ru.tgra.objects;
 
-import com.badlogic.gdx.math.Vector3;
 import is.ru.tgra.Color3;
 import is.ru.tgra.Point3D;
 import is.ru.tgra.camera.Camera;
 import is.ru.tgra.camera.FirstPersonCamera;
 import is.ru.tgra.camera.TopDownCamera;
+import is.ru.tgra.maze.Cell;
 import is.ru.tgra.maze.Maze;
+import is.ru.tgra.maze.Wall;
 import is.ru.tgra.player.Player;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ObjectFactory {
     protected static Maze maze;
 
     protected static List<ObjectReference> objects = new ArrayList<ObjectReference>();
+    protected static List<CollidableObject> collidableObjects = new ArrayList<CollidableObject>();
     protected static List<Camera> cameras = new ArrayList<Camera>();
     protected static List<Pyramid> pyramids = new ArrayList<Pyramid>();
 
@@ -51,6 +53,12 @@ public class ObjectFactory {
     public Box createWallBox(Point3D position, float xSize, float ySize, float zSize, Color3 color) {
         Box box = new Box(position, xSize, ySize, zSize, color);
         return box;
+    }
+
+    public Wall createWall(Cell cell1, Cell cell2, Maze maze) {
+        Wall wall = new Wall(cell1, cell2, maze);
+        collidableObjects.add(wall);
+        return wall;
     }
 
     public void createPlayer() {
@@ -87,8 +95,20 @@ public class ObjectFactory {
         return box;
     }
 
+    public List<CollidableObject> getCollidableObjects() {
+        return collidableObjects;
+    }
+
     public Pyramid createPyramid() {
         Pyramid pyramid = new Pyramid();
+        objects.add(pyramid);
+        pyramids.add(pyramid);
+        collidableObjects.add(pyramid);
+        return pyramid;
+    }
+
+    public Pyramid createPyramid(int levels, Point3D position, float pyramidRotate) {
+        Pyramid pyramid = new Pyramid(levels, position, pyramidRotate);
         objects.add(pyramid);
         pyramids.add(pyramid);
         return pyramid;

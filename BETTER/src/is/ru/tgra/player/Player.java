@@ -1,10 +1,12 @@
 package is.ru.tgra.player;
 
+import com.badlogic.gdx.math.Vector3;
 import is.ru.tgra.Point3D;
 import is.ru.tgra.camera.FirstPersonCamera;
 import is.ru.tgra.camera.ThirdPersonCamera;
 import is.ru.tgra.camera.TopDownCamera;
 import is.ru.tgra.objects.Arrow;
+import is.ru.tgra.objects.CollidableObject;
 import is.ru.tgra.objects.ObjectFactory;
 import is.ru.tgra.objects.ObjectReference;
 
@@ -23,7 +25,6 @@ public class Player implements ObjectReference {
     private TopDownCamera topDownCamera;
     private ThirdPersonCamera thirdPersonCamera;
     private Arrow arrow;
-    private Point3D position;
     private ObjectFactory objectFactory = ObjectFactory.getInstance();
 
     public Player() {
@@ -49,17 +50,33 @@ public class Player implements ObjectReference {
         return arrow;
     }
 
-    @Override
-    public void draw() {
-
-    }
-
     public void switchCameras() {
         firstPersonCamera.switchActivated();
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void draw() {
 
+    }
+
+    public void verticalCollision() {
+        firstPersonCamera.verticalCollision();
+    }
+
+    public void horizontalCollision() {
+        firstPersonCamera.horizontalCollision();
+    }
+
+    @Override
+    public void update(float deltaTime) {
+    }
+
+    public Vector3 getMovement() {
+        return firstPersonCamera.getMovement();
+    }
+
+    @Override
+    public Point3D getPosition() {
+        return firstPersonCamera.getPosition();
     }
 }

@@ -3,6 +3,7 @@ package is.ru.tgra.camera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import is.ru.tgra.Point3D;
+import is.ru.tgra.objects.CollidableObject;
 
 public class FirstPersonCamera extends AbstractCamera
 {
@@ -34,33 +35,54 @@ public class FirstPersonCamera extends AbstractCamera
     @Override
     public void update(float deltaTime) {
 
+        Vector3 direction = new Vector3();
+        direction.x = 0;
+        direction.y = 0;
+        direction.z = 0;
         if(inputHandler.isWPressed) {
-            this.slide(0, 0, deltaTime * -speed);
+            direction.z = -1;
         }
-        if(inputHandler.isAPressed) {
-            this.slide(deltaTime * -speed, 0, 0);
-        }
+        /*if(inputHandler.isAPressed) {
+            direction.x = -1;
+        }*/
         if(inputHandler.isSPressed) {
-            this.slide(0, 0, deltaTime * speed);
+            direction.z = 1;
         }
-        if(inputHandler.isDPressed) {
-            this.slide(deltaTime * speed, 0, 0);
-        }
-        if(inputHandler.isUpPressed) {
-            this.pitch(-90.0f* deltaTime);
-        }
-        if(inputHandler.isDownPressed) {
-            this.pitch(90.0f * deltaTime);
-        }
+        /*if(inputHandler.isDPressed) {
+            direction.x = 1;
+        }*/
         if(inputHandler.isLeftPressed) {
             this.yaw(90.0f * deltaTime);
         }
         if(inputHandler.isRightPressed) {
             this.yaw(-90.0f * deltaTime);
         }
+        this.setDirection(direction);
+        for (CollidableObject co : objectFactory.getCollidableObjects()) {
+            co.collision(objectFactory.getPlayer());
+        }
+        this.slide(deltaTime);
+    }
 
-        //this.yaw(inputHandler.xMovement * deltaTime);
+    public void verticalCollision() {
+        this.movement.x = 0;
+    }
 
-        //this.pitch(inputHandler.yMovement * deltaTime);
+    public void horizontalCollision() {
+        this.movement.z = 0;
+    }
+
+    @Override
+    public Point3D getPosition() {
+        return eye;
+    }
+
+    public Vector3 getMovement() {
+        Vector3 dir = new Vector3(n);
+        //dir.nor();
+        /*dir.x *= speed;
+        dir.y *= speed;
+        dir.z *= speed;*/
+        return dir;
     }
 }

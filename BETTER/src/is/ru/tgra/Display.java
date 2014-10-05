@@ -10,13 +10,12 @@ import com.badlogic.gdx.utils.BufferUtils;
 import is.ru.tgra.camera.Camera;
 import is.ru.tgra.camera.FirstPersonCamera;
 import is.ru.tgra.camera.TopDownCamera;
-import is.ru.tgra.objects.Arrow;
-import is.ru.tgra.objects.Box;
-import is.ru.tgra.objects.ObjectFactory;
-import is.ru.tgra.objects.ObjectReference;
+import is.ru.tgra.maze.Wall;
+import is.ru.tgra.objects.*;
 import is.ru.tgra.player.Player;
 
 import java.nio.FloatBuffer;
+import java.util.List;
 
 /**
  * <h1>Display</h1>
@@ -53,12 +52,13 @@ public class Display implements ApplicationListener {
     @Override
     public void create() {
         createSetup();
-        //objectFactory.createTopDownCamera();
-        //objectFactory.createFirstPersonCamera();
         objectFactory.createPlayer();
-        objectFactory.createPyramid();
+        //objectFactory.createPyramid(5, new Point3D(0, 0, 0), 280f);
+        objectFactory.createPyramid(10, new Point3D(-40.0f, 6.0f, 0.0f), 60.0f);
         //Walls
         objectFactory.createMaze(10, 6);
+        List<CollidableObject> collidableObjects = objectFactory.getCollidableObjects();
+        collidableObjects.size();
     }
 
     @Override

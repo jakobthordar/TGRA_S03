@@ -34,4 +34,13 @@ public class Point3D
         float newZ = this.z - p.z;
         return (float)Math.sqrt(newX * newX + newY * newY + newZ * newZ);
     }
+
+    @Override
+    public String toString() {
+        return "Point3D{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
+    }
 }

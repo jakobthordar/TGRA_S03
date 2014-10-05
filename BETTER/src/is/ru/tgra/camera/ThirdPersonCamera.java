@@ -39,4 +39,9 @@ public class ThirdPersonCamera extends AbstractCamera {
             this.setMatrices();
         }
     }
+
+    @Override
+    public Point3D getPosition() {
+        return eye;
+    }
 }

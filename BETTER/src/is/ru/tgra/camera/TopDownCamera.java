@@ -62,4 +62,9 @@ public class TopDownCamera extends AbstractCamera {
                 FPC.eye, new Vector3(0, 0, -1));
         this.setMatrices();
     }
+
+    @Override
+    public Point3D getPosition() {
+        return eye;
+    }
 }

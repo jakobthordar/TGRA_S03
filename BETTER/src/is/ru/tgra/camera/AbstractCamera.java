@@ -22,8 +22,9 @@ public abstract class AbstractCamera implements Camera {
     public Vector3 v;
     public Vector3 n;
 
-    protected float speed = 8;
+    protected float speed = 10.0f;
     protected float farPlane = 100;
+    protected Vector3 movement = new Vector3();
 
     protected float left;
     protected float right;
@@ -93,10 +94,23 @@ public abstract class AbstractCamera implements Camera {
         setModelViewMatrix();
     }
 
-    public void slide(float delU, float delV, float delN) {
+    /*public void slide(float delU, float delV, float delN) {
         eye.add(Vector3Helper.scale(u, delU));
         eye.add(Vector3Helper.scale(v, delV));
         eye.add(Vector3Helper.scale(n, delN));
+    }*/
+
+    public void setDirection(Vector3 direction) {
+        Vector3 newMotion = direction.nor();
+        this.movement.x = newMotion.x * speed;
+        this.movement.y = newMotion.y * speed;
+        this.movement.z = newMotion.z * speed;
+    }
+
+    public void slide(float deltaTime) {
+        eye.add(Vector3Helper.scale(u, this.movement.x * deltaTime));
+        eye.add(Vector3Helper.scale(v, this.movement.y * deltaTime));
+        eye.add(Vector3Helper.scale(n, this.movement.z * deltaTime));
     }
 
     public void roll(float angle) {

@@ -3,6 +3,7 @@ package is.ru.tgra.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.BufferUtils;
 import is.ru.tgra.Color3;
+import is.ru.tgra.Point3D;
 import is.ru.tgra.camera.FirstPersonCamera;
 import org.lwjgl.opengl.GL11;
 
@@ -92,5 +93,10 @@ public class Arrow implements ObjectReference {
     @Override
     public void update(float deltaTime) {
 
+    }
+
+    @Override
+    public Point3D getPosition() {
+        return this.camFirstPerson.eye;
     }
 }

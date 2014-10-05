@@ -50,10 +50,10 @@ public class Maze implements ObjectReference {
     }
 
     private void createBorderWalls() {
-        Wall l = new Wall(new Coordinate(0, 0), new Coordinate(0, size), this);
-        Wall r = new Wall(new Coordinate(size, 0), new Coordinate(size, size), this);
-        Wall b = new Wall(new Coordinate(0, 0), new Coordinate(size, 0), this);
-        Wall t = new Wall(new Coordinate(0, size), new Coordinate(size, size), this);
+        Wall l = new Wall(new Cell(0, 0), new Cell(0, size), this);
+        Wall r = new Wall(new Cell(size, 0), new Cell(size, size), this);
+        Wall b = new Wall(new Cell(0, 0), new Cell(size, 0), this);
+        Wall t = new Wall(new Cell(0, size), new Cell(size, size), this);
         walls.add(l);
         walls.add(r);
         walls.add(b);
@@ -61,13 +61,13 @@ public class Maze implements ObjectReference {
     }
 
     private void createWalls() {
-        Wall wall1 = new Wall(new Coordinate(2, 2), new Coordinate(8, 2), this);
-        Wall wall2 = new Wall(new Coordinate(2, 4), new Coordinate(2, 8), this);
-        Wall wall3 = new Wall(new Coordinate(2, 4), new Coordinate(8, 4), this);
-        Wall wall4 = new Wall(new Coordinate(4, 6), new Coordinate(6, 6), this);
-        Wall wall5 = new Wall(new Coordinate(8, 2), new Coordinate(8, 8), this);
-        Wall wall6 = new Wall(new Coordinate(4, 6), new Coordinate(4, 8), this);
-        Wall wall7 = new Wall(new Coordinate(4, 8), new Coordinate(8, 8), this);
+        Wall wall1 = objectFactory.createWall(new Cell(2, 2), new Cell(8, 2), this);
+        Wall wall2 = objectFactory.createWall(new Cell(2, 4), new Cell(2, 8), this);
+        Wall wall3 = objectFactory.createWall(new Cell(2, 4), new Cell(8, 4), this);
+        Wall wall4 = objectFactory.createWall(new Cell(4, 6), new Cell(6, 6), this);
+        Wall wall5 = objectFactory.createWall(new Cell(8, 2), new Cell(8, 8), this);
+        Wall wall6 = objectFactory.createWall(new Cell(4, 6), new Cell(4, 8), this);
+        Wall wall7 = objectFactory.createWall(new Cell(4, 8), new Cell(8, 8), this);
         //Wall wall8 = new Wall(new Coordinate(0, size), new Coordinate(size, size), this);
         walls.add(wall1);
         walls.add(wall2);
@@ -101,6 +101,11 @@ public class Maze implements ObjectReference {
     @Override
     public void update(float deltaTime) {
 
+    }
+
+    @Override
+    public Point3D getPosition() {
+        return position;
     }
 
     public Point3D getBottomLeftCorner() {

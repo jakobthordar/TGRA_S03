@@ -81,7 +81,8 @@ public class Box extends AbstractShape {
 
     }
 
-
-
-
+    @Override
+    public Point3D getPosition() {
+        return position;
+    }
 }
