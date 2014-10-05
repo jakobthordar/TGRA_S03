@@ -1,6 +1,7 @@
 package is.ru.tgra.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.BufferUtils;
 import is.ru.tgra.Color3;
 import is.ru.tgra.Point3D;
@@ -8,6 +9,8 @@ import is.ru.tgra.camera.FirstPersonCamera;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <h1>Arrow</h1>

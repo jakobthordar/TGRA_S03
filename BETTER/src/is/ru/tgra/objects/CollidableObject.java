@@ -16,7 +16,8 @@ public interface CollidableObject extends ObjectReference {
      * has happened and this function returns true if the collision occurred.
      * The object needs to implement its own collision response.
      * @param or The object reference to check.
+     * @param deltaTime
      * @return Returns true if a collision happens, false otherwise.
      */
-    public void collision(ObjectReference or);
+    public void collision(ObjectReference or, float deltaTime);
 }

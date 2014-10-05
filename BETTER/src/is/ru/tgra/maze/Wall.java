@@ -1,13 +1,11 @@
 package is.ru.tgra.maze;
 
-import com.badlogic.gdx.math.Vector3;
 import is.ru.tgra.Color3;
 import is.ru.tgra.Point3D;
 import is.ru.tgra.objects.Box;
 import is.ru.tgra.objects.CollidableObject;
 import is.ru.tgra.objects.ObjectFactory;
 import is.ru.tgra.objects.ObjectReference;
-import is.ru.tgra.player.Player;
 
 /**
  * <h1>Wall</h1>
@@ -25,7 +23,7 @@ public class Wall implements CollidableObject {
     private Point3D startPoint;
     private Point3D endPoint;
     private float length;
-    private float thickness = 0.5f;
+    private float thickness = 2.5f;
     private float tallness = 10f;
     private boolean isVertical;
     private Point3D position;
@@ -47,13 +45,13 @@ public class Wall implements CollidableObject {
         if (startCoordinate.x == endCoordinate.x) {
             Point3D newPos = new Point3D(startPoint.x, startPoint.y, startPoint.z + length / 2);
             position = newPos;
-            isVertical = false;
+            isVertical = true;
             box = objectFactory.createWallBox(newPos, thickness, tallness, length + thickness, Color3.pastelRed);
         }
         if (startCoordinate.y == endCoordinate.y) {
             Point3D newPos = new Point3D(startPoint.x + length / 2, startPoint.y, startPoint.z);
             position = newPos;
-            isVertical = true;
+            isVertical = false;
             box = objectFactory.createWallBox(newPos, length + thickness, tallness, thickness, Color3.pastelRed);
         }
     }
@@ -77,38 +75,12 @@ public class Wall implements CollidableObject {
         return position;
     }
 
+    public boolean checkIfOnLine(Point3D a, Point3D b, Point3D pHit) {
+        return (a.lengthTo(pHit) + b.lengthTo(pHit)) == a.lengthTo(b);
+    }
+
     @Override
-    public void collision(ObjectReference or) {
-        Player player = (Player) or;
-        if(isVertical) {
-            if (player.getPosition().x > position.x) {
-                if ((player.getPosition().x + player.getMovement().x) < position.x) {
-                    player.verticalCollision();
-                    System.out.println("Vertical");
-                }
-            }
-            if (player.getPosition().x < position.x) {
-                float movX = player.getMovement().x;
-                float pPos = player.getPosition().x;
-                if ((pPos + movX) > position.x) {
-                    player.verticalCollision();
-                    System.out.println("Vertical");
-                }
-            }
-        }
-        else {
-            if (player.getPosition().y > position.y) {
-                if ((player.getPosition().y + player.getMovement().y) < position.y) {
-                    player.horizontalCollision();
-                    System.out.println("Horizontal");
-                }
-            }
-            if (player.getPosition().y < position.y) {
-                if ((player.getPosition().y + player.getMovement().y) > position.y) {
-                    player.horizontalCollision();
-                    System.out.println("Horizontal");
-                }
-            }
-        }
+    public void collision(ObjectReference or, float deltaTime) {
+        this.box.collision(or, deltaTime);
     }
 }

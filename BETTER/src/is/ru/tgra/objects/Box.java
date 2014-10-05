@@ -2,9 +2,11 @@ package is.ru.tgra.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL11;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.BufferUtils;
 import is.ru.tgra.Color3;
 import is.ru.tgra.Point3D;
+import is.ru.tgra.player.Player;
 
 import java.nio.FloatBuffer;
 
@@ -17,6 +19,10 @@ import java.nio.FloatBuffer;
 public class Box extends AbstractShape {
 
     private static FloatBuffer vertexBuffer;
+    private Point3D TL;
+    private Point3D TR;
+    private Point3D BL;
+    private Point3D BR;
 
     public Box() {
     }
@@ -27,6 +33,16 @@ public class Box extends AbstractShape {
         this.xSize = xSize;
         this.zSize = zSize;
         this.color = color;
+
+        float left = this.position.x - (xSize / 2f);
+        float right = this.position.x + (xSize / 2f);
+        float top = this.position.z + (zSize / 2f);
+        float bottom = this.position.z - (zSize / 2f);
+
+        this.TL = new Point3D(left, 0, top);
+        this.TR = new Point3D(right, 0, top);
+        this.BL = new Point3D(left, 0, bottom);
+        this.BR = new Point3D(right, 0, bottom);
     }
 
     public static void loadVertices() {
@@ -79,6 +95,57 @@ public class Box extends AbstractShape {
     @Override
     public void update(float deltaTime) {
 
+    }
+
+    @Override
+    public void collision(ObjectReference or, float deltaTime) {
+        Player player = (Player) or;
+        float tHit;
+        Point3D pHit;
+        Vector3 motion = player.getDirection();
+        Point3D position = player.getPosition();
+
+        tHit = this.tHit(position, BL, BR, motion);
+        if (tHit <= deltaTime && tHit > 0) {
+            System.out.println("tHit!");
+            pHit = this.pHit(position, motion, tHit);
+            if (checkIfOnLine(BL, BR, pHit)) {
+                System.out.println("pHit is on line!");
+                //objectFactory.getCamFirstPerson().setDirection(new Vector3(0, 0, 0));
+                player.horizontalCollision();
+            }
+        }
+
+
+        tHit = this.tHit(position, BL, TL, motion);
+        if (tHit <= deltaTime && tHit > 0) {
+            System.out.println("tHit!");
+            pHit = this.pHit(position, motion, tHit);
+            if (checkIfOnLine(BL, TL, pHit)) {
+                System.out.println("pHit is on line!");
+                player.verticalCollision();
+            }
+        }
+
+        tHit = this.tHit(position, TL, TR, motion);
+        if (tHit <= deltaTime && tHit > 0) {
+            System.out.println("tHit!");
+            pHit = this.pHit(position, motion, tHit);
+            if (checkIfOnLine(TL, TR, pHit)) {
+                System.out.println("pHit is on line!");
+                player.horizontalCollision();
+            }
+        }
+
+        tHit = this.tHit(position, BR, TR, motion);
+        if (tHit <= deltaTime && tHit > 0) {
+            System.out.println("tHit!");
+            pHit = this.pHit(position, motion, tHit);
+            if (checkIfOnLine(BR, TR, pHit)) {
+                System.out.println("pHit is on line!");
+                player.verticalCollision();
+            }
+        }
     }
 
     @Override

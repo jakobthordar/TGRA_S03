@@ -70,6 +70,7 @@ public class ObjectFactory {
         newPlayer.setTopDownCamera(tdc);
         newPlayer.setArrow(arrow);
         player = newPlayer;
+        objects.add(player);
     }
 
     public Arrow createArrow() {
@@ -116,14 +117,14 @@ public class ObjectFactory {
 
     private FirstPersonCamera createFirstPersonCamera() {
         camFirstPerson = new FirstPersonCamera();
-        objects.add(camFirstPerson);
+        //objects.add(camFirstPerson);
         cameras.add(camFirstPerson);
         return camFirstPerson;
     }
 
     private TopDownCamera createTopDownCamera() {
         topDownCamera = new TopDownCamera();
-        objects.add(topDownCamera);
+        //objects.add(topDownCamera);
         cameras.add(topDownCamera);
         return topDownCamera;
     }

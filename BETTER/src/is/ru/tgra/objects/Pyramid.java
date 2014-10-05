@@ -1,7 +1,6 @@
 package is.ru.tgra.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import is.ru.tgra.Color3;
 import is.ru.tgra.Point3D;
 
@@ -83,6 +82,6 @@ public class Pyramid implements CollidableObject {
     }
 
     @Override
-    public void collision(ObjectReference or) {
+    public void collision(ObjectReference or, float deltaTime) {
     }
 }

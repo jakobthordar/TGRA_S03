@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.BufferUtils;
 import is.ru.tgra.camera.Camera;
 import is.ru.tgra.camera.FirstPersonCamera;
 import is.ru.tgra.camera.TopDownCamera;
+import is.ru.tgra.maze.Cell;
 import is.ru.tgra.maze.Wall;
 import is.ru.tgra.objects.*;
 import is.ru.tgra.player.Player;

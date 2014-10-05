@@ -7,7 +7,11 @@ import com.badlogic.gdx.math.Vector3;
 import is.ru.tgra.InputHandler;
 import is.ru.tgra.Point3D;
 import is.ru.tgra.Vector3Helper;
+import is.ru.tgra.objects.CollidableObject;
 import is.ru.tgra.objects.ObjectFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p></p>
@@ -21,10 +25,17 @@ public abstract class AbstractCamera implements Camera {
     public Vector3 u;
     public Vector3 v;
     public Vector3 n;
+    protected int vertexCount = 20;
+    protected List<Point3D> points = new ArrayList<Point3D>();
+    public boolean hCol;
+    public boolean vCol;
 
-    protected float speed = 10.0f;
+
+    protected float maxSpeed = 10.0f;
+    protected float speed = 0.0f;
     protected float farPlane = 100;
-    protected Vector3 movement = new Vector3();
+    protected Vector3 direction = new Vector3();
+    protected Vector3 motion = new Vector3();
 
     protected float left;
     protected float right;
@@ -102,15 +113,46 @@ public abstract class AbstractCamera implements Camera {
 
     public void setDirection(Vector3 direction) {
         Vector3 newMotion = direction.nor();
-        this.movement.x = newMotion.x * speed;
-        this.movement.y = newMotion.y * speed;
-        this.movement.z = newMotion.z * speed;
+        this.motion.x = newMotion.x * speed;
+        this.motion.y = newMotion.y * speed;
+        this.motion.z = newMotion.z * speed;
+        this.direction.x = this.n.x * speed;
+        this.direction.y = this.n.y * speed;
+        this.direction.z = this.n.z * speed;
+    }
+
+    public void verticalCollision() {
+        /*
+        this.motion.x = 0;
+        this.direction.x = 0;
+        this.motion.z = 0;
+        this.direction.z = 0;
+        */
+        vCol = true;
+    }
+
+    public void horizontalCollision() {
+        /*
+        this.motion.z = 0;
+        this.direction.z = 0;
+        this.motion.x = 0;
+        this.direction.x = 0;
+        */
+        hCol = true;
+    }
+
+    public List<Point3D> getPoints() {
+        return points;
     }
 
     public void slide(float deltaTime) {
-        eye.add(Vector3Helper.scale(u, this.movement.x * deltaTime));
-        eye.add(Vector3Helper.scale(v, this.movement.y * deltaTime));
-        eye.add(Vector3Helper.scale(n, this.movement.z * deltaTime));
+        System.out.println("MovingX");
+        eye.add(Vector3Helper.scale(u, this.motion.x * deltaTime));
+
+        System.out.println("MovingZ");
+        if (!hCol) {
+            eye.add(Vector3Helper.scale(n, this.motion.z * deltaTime));
+        }
     }
 
     public void roll(float angle) {

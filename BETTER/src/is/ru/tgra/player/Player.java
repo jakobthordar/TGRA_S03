@@ -6,7 +6,6 @@ import is.ru.tgra.camera.FirstPersonCamera;
 import is.ru.tgra.camera.ThirdPersonCamera;
 import is.ru.tgra.camera.TopDownCamera;
 import is.ru.tgra.objects.Arrow;
-import is.ru.tgra.objects.CollidableObject;
 import is.ru.tgra.objects.ObjectFactory;
 import is.ru.tgra.objects.ObjectReference;
 
@@ -69,10 +68,11 @@ public class Player implements ObjectReference {
 
     @Override
     public void update(float deltaTime) {
+        firstPersonCamera.update(deltaTime);
     }
 
-    public Vector3 getMovement() {
-        return firstPersonCamera.getMovement();
+    public Vector3 getDirection() {
+        return firstPersonCamera.getDirection();
     }
 
     @Override
