@@ -58,6 +58,18 @@ public class Player implements ObjectReference {
 
     }
 
+    public FirstPersonCamera getFirstPersonCamera() {
+        return firstPersonCamera;
+    }
+
+    public TopDownCamera getTopDownCamera() {
+        return topDownCamera;
+    }
+
+    public ThirdPersonCamera getThirdPersonCamera() {
+        return thirdPersonCamera;
+    }
+
     public void verticalCollision() {
         firstPersonCamera.verticalCollision();
     }

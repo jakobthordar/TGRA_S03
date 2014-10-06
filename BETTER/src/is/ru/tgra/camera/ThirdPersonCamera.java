@@ -18,7 +18,7 @@ public class ThirdPersonCamera extends AbstractCamera {
     private boolean isActivated;
 
     public ThirdPersonCamera() {
-        FirstPersonCamera FPS = objectFactory.getCamFirstPerson();
+        FirstPersonCamera FPS = objectFactory.getPlayer().getFirstPersonCamera();
         this.lookAt(new Point3D(FPS.eye.x, FPS.eye.y + 5, FPS.eye.z), FPS.eye, new Vector3(0.0f, 1.0f, 0.0f));
         this.perspective(75.0f, 1.333333f, 0.2f, farPlane);
         this.isActivated = false;

@@ -97,6 +97,20 @@ public class Box extends AbstractShape {
 
     }
 
+    /*
+    @Override
+    public void collision(ObjectReference or, float deltaTime) {
+        System.out.println(objectFactory.getPlayer().getDirection());
+        Player player = (Player) or;
+        Point3D playerPos = player.getPosition();
+        Vector3 direction = player.getDirection();
+
+        if (playerPos.x < position.x) {
+
+        }
+    }
+    */
+
     @Override
     public void collision(ObjectReference or, float deltaTime) {
         Player player = (Player) or;
@@ -107,42 +121,32 @@ public class Box extends AbstractShape {
 
         tHit = this.tHit(position, BL, BR, motion);
         if (tHit <= deltaTime && tHit > 0) {
-            System.out.println("tHit!");
             pHit = this.pHit(position, motion, tHit);
             if (checkIfOnLine(BL, BR, pHit)) {
-                System.out.println("pHit is on line!");
-                //objectFactory.getCamFirstPerson().setDirection(new Vector3(0, 0, 0));
                 player.horizontalCollision();
             }
         }
 
-
         tHit = this.tHit(position, BL, TL, motion);
         if (tHit <= deltaTime && tHit > 0) {
-            System.out.println("tHit!");
             pHit = this.pHit(position, motion, tHit);
             if (checkIfOnLine(BL, TL, pHit)) {
-                System.out.println("pHit is on line!");
                 player.verticalCollision();
             }
         }
 
         tHit = this.tHit(position, TL, TR, motion);
         if (tHit <= deltaTime && tHit > 0) {
-            System.out.println("tHit!");
             pHit = this.pHit(position, motion, tHit);
             if (checkIfOnLine(TL, TR, pHit)) {
-                System.out.println("pHit is on line!");
                 player.horizontalCollision();
             }
         }
 
         tHit = this.tHit(position, BR, TR, motion);
         if (tHit <= deltaTime && tHit > 0) {
-            System.out.println("tHit!");
             pHit = this.pHit(position, motion, tHit);
             if (checkIfOnLine(BR, TR, pHit)) {
-                System.out.println("pHit is on line!");
                 player.verticalCollision();
             }
         }

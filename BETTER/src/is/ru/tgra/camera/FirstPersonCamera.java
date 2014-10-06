@@ -15,22 +15,25 @@ public class FirstPersonCamera extends AbstractCamera
 
     public FirstPersonCamera() {
         this.lookAt(new Point3D(3.0f, 3.0f, 3.0f), new Point3D(0.0f, 3.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f));
-        this.perspective(75.0f, 1.333333f, 0.2f, farPlane);
+        this.perspective(75.0f, 1.333333f, 0.1f, farPlane);
         this.isActivated = true;
         this.hCol = false;
         this.vCol = false;
 
-        float center_x = 0.0f;
-        float center_z = 0.0f;
-        float outerVertexCount = vertexCount - 1;
-        for (int i = 0; i < outerVertexCount; ++i) {
-            float percent = (i / (float) (outerVertexCount - 1));
-            float rad = percent * 2 * (float) Math.PI;
+        float left = this.eye.x - (20 / 2f);
+        float right = this.eye.x + (20 / 2f);
+        float top = this.eye.z + (20 / 2f);
+        float bottom = this.eye.z - (20 / 2f);
 
-            float outer_x = center_x + 7.0f * (float) Math.cos(rad);
-            float outer_z = center_z + 7.0f * (float) Math.sin(rad);
-            this.points.add(new Point3D(outer_x, 0, outer_z));
-        }
+        this.TL = new Point3D(left, 0, top);
+        this.TR = new Point3D(right, 0, top);
+        this.BL = new Point3D(left, 0, bottom);
+        this.BR = new Point3D(right, 0, bottom);
+        points.add(TL);
+        points.add(TR);
+        points.add(BL);
+        points.add(BR);
+
     }
 
 
@@ -56,18 +59,24 @@ public class FirstPersonCamera extends AbstractCamera
         Vector3 newDir = new Vector3();
 
         if(inputHandler.isWPressed && !vCol && !hCol) {
-            newDir.z = -1;
-            this.speed = maxSpeed;
+            newDir.z = 1;
+            this.speed = -maxSpeed;
         }
         if(inputHandler.isSPressed) {
-            newDir.z = -1;
-            this.speed = -maxSpeed;
+            newDir.z = 1;
+            this.speed = maxSpeed;
         }
         if(inputHandler.isLeftPressed) {
             this.yaw(90.0f * deltaTime);
         }
         if(inputHandler.isRightPressed) {
             this.yaw(-90.0f * deltaTime);
+        }
+        if(inputHandler.isUpPressed) {
+            this.pitch(90.0f * deltaTime);
+        }
+        if(inputHandler.isDownPressed) {
+            this.pitch(-90.0f * deltaTime);
         }
 
 
@@ -77,18 +86,8 @@ public class FirstPersonCamera extends AbstractCamera
             co.collision(objectFactory.getPlayer(), deltaTime);
         }
 
-
         this.slide(deltaTime);
 
-        /*
-        Point3D point;
-        for (int i = 0; i < points.size(); i++) {
-            point = points.get(i);
-            point.x += motion.x * deltaTime;
-            point.z += motion.z * deltaTime;
-            points.set(i, point);
-        }
-        */
         this.speed = 0;
     }
 

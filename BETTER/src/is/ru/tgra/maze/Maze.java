@@ -46,11 +46,61 @@ public class Maze implements ObjectReference {
     public void makeMaze() {
         createFloor();
         createBorderWalls();
-        createWalls();
+        //createWalls();
+        mazeTester();
+    }
+
+    public void mazeTester() {
+        MazeGenerator maze = new PrimMazeGenerator(size, size);
+        maze.generate();
+        int height = maze.getHeight();
+        int width = maze.getWidth();
+        boolean[] horizWalls = maze.getHorizWalls();
+        boolean[] vertWalls = maze.getVertWalls();
+        Wall wall;
+        maze.print(System.out);
+        for (int y = 0; y < height; y++) {
+            int rowBase = y * width;
+            for (int x = 0; x < width; x++) {
+                if (horizWalls[rowBase + x]) {
+                    //horizontal wall
+                    wall = objectFactory.createWall(new Cell(x, y), new Cell(x + 1, y), this);
+                    walls.add(wall);
+                }
+                else {
+                    //not horizontal wall
+                }
+            }
+
+            rowBase = y * (width + 1);
+            for (int x = 0; x < width; x++) {
+                if (vertWalls[rowBase + x]) {
+                    wall = objectFactory.createWall(new Cell(x, y), new Cell(x, y + 1), this);
+                    walls.add(wall);
+                    //vertical wall
+                }
+                else {
+                    //not vertical wall
+                }
+            }
+        }
+
+        /*
+        int rowBase = height * width;
+        for (int x = 0; x < width; x++) {
+            if (horizWalls[rowBase + x]) {
+                wall = objectFactory.createWall(new Cell(x, height), new Cell(x+1, height), this);
+                walls.add(wall);
+                //horizontall wall
+            }
+            else {
+                //not horizontal wall
+            }
+        }
+        */
     }
 
     private void createBorderWalls() {
-        /*
         Wall l = objectFactory.createWall(new Cell(0, 0), new Cell(0, size), this);
         Wall r = objectFactory.createWall(new Cell(size, 0), new Cell(size, size), this);
         Wall b = objectFactory.createWall(new Cell(0, 0), new Cell(size, 0), this);
@@ -59,25 +109,24 @@ public class Maze implements ObjectReference {
         walls.add(r);
         walls.add(b);
         walls.add(t);
-        */
     }
 
     private void createWalls() {
         Wall wall1 = objectFactory.createWall(new Cell(2, 2), new Cell(8, 2), this);
-        /*Wall wall2 = objectFactory.createWall(new Cell(2, 4), new Cell(2, 8), this);
+        Wall wall2 = objectFactory.createWall(new Cell(2, 4), new Cell(2, 8), this);
         Wall wall3 = objectFactory.createWall(new Cell(2, 4), new Cell(8, 4), this);
         Wall wall4 = objectFactory.createWall(new Cell(4, 6), new Cell(6, 6), this);
         Wall wall5 = objectFactory.createWall(new Cell(8, 2), new Cell(8, 8), this);
         Wall wall6 = objectFactory.createWall(new Cell(4, 6), new Cell(4, 8), this);
-        Wall wall7 = objectFactory.createWall(new Cell(4, 8), new Cell(8, 8), this);*/
+        Wall wall7 = objectFactory.createWall(new Cell(4, 8), new Cell(8, 8), this);
         //Wall wall8 = new Wall(new Coordinate(0, size), new Coordinate(size, size), this);
         walls.add(wall1);
-        /*walls.add(wall2);
+        walls.add(wall2);
         walls.add(wall3);
         walls.add(wall4);
         walls.add(wall5);
         walls.add(wall6);
-        walls.add(wall7);*/
+        walls.add(wall7);
         //walls.add(wall8);
     }
 

@@ -20,7 +20,7 @@ import java.nio.FloatBuffer;
 public class TopDownCamera extends AbstractCamera {
 
     private static FloatBuffer vertexBuffer2DBox;
-    private float distance = 30;
+    private float distance = 50;
 
     public TopDownCamera() {
         this.perspective(40.0f, 1.333333f, 5.0f, farPlane);
@@ -56,8 +56,7 @@ public class TopDownCamera extends AbstractCamera {
         Gdx.gl11.glEnable(GL11.GL_LIGHTING);
         Gdx.gl11.glEnable(GL11.GL_DEPTH_TEST);
 
-        //camFirstPerson.setMatrices();
-        FirstPersonCamera FPC = objectFactory.getCamFirstPerson();
+        FirstPersonCamera FPC = objectFactory.getPlayer().getFirstPersonCamera();
         this.lookAt(new Point3D(FPC.eye.x, distance, FPC.eye.z),
                 FPC.eye, new Vector3(0, 0, -1));
         this.setMatrices();

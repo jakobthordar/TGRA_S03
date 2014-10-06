@@ -23,7 +23,7 @@ public class Wall implements CollidableObject {
     private Point3D startPoint;
     private Point3D endPoint;
     private float length;
-    private float thickness = 2.5f;
+    private float thickness = 1.5f;
     private float tallness = 10f;
     private boolean isVertical;
     private Point3D position;

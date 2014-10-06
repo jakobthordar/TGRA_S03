@@ -25,15 +25,19 @@ public abstract class AbstractCamera implements Camera {
     public Vector3 u;
     public Vector3 v;
     public Vector3 n;
-    protected int vertexCount = 20;
+    protected int vertexCount = 50;
     protected List<Point3D> points = new ArrayList<Point3D>();
     public boolean hCol;
     public boolean vCol;
 
+    protected Point3D TL;
+    protected Point3D TR;
+    protected Point3D BL;
+    protected Point3D BR;
 
     protected float maxSpeed = 10.0f;
     protected float speed = 0.0f;
-    protected float farPlane = 150;
+    protected float farPlane = 350;
     protected Vector3 direction = new Vector3();
     protected Vector3 motion = new Vector3();
 
@@ -122,22 +126,10 @@ public abstract class AbstractCamera implements Camera {
     }
 
     public void verticalCollision() {
-        /*
-        this.motion.x = 0;
-        this.direction.x = 0;
-        this.motion.z = 0;
-        this.direction.z = 0;
-        */
         vCol = true;
     }
 
     public void horizontalCollision() {
-        /*
-        this.motion.z = 0;
-        this.direction.z = 0;
-        this.motion.x = 0;
-        this.direction.x = 0;
-        */
         hCol = true;
     }
 
@@ -146,13 +138,21 @@ public abstract class AbstractCamera implements Camera {
     }
 
     public void slide(float deltaTime) {
-        System.out.println("MovingX");
-        eye.add(Vector3Helper.scale(u, this.motion.x * deltaTime));
-
-        System.out.println("MovingZ");
-        if (!hCol) {
-            eye.add(Vector3Helper.scale(n, this.motion.z * deltaTime));
+        if (!vCol) {
+            eye.x = eye.x + u.x * (this.motion.x * deltaTime);
+            eye.x = eye.x + n.x * (this.motion.y * deltaTime);
+            eye.x = eye.x + v.x * (this.motion.z * deltaTime);
         }
+        if (!hCol) {
+            eye.z = eye.z + u.z * (this.motion.x * deltaTime);
+            eye.z = eye.z + n.z * (this.motion.y * deltaTime);
+            eye.z = eye.z + v.z * (this.motion.z * deltaTime);
+        }
+        eye.y = eye.y + u.y * (this.motion.x * deltaTime);
+        eye.y = eye.y + n.y * (this.motion.y * deltaTime);
+        eye.y = eye.y + v.y * (this.motion.z * deltaTime);
+        hCol = false;
+        vCol = false;
     }
 
     public void roll(float angle) {
